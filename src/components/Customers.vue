@@ -8,7 +8,6 @@
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
-          <th>Edit/Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -25,12 +24,11 @@
 
 <script>
 
-
-// import {dbRef} from '../firebase'
-// import {db} from '../firebase'
 import Alert from './Alert'
 import firebase from 'firebase';
 const db = firebase.firestore();
+const dbRef = db.collection("customers");
+
 
 export default {
   name: 'customers',
@@ -43,8 +41,7 @@ export default {
   },
   methods: {
     fetchCustomers(){
-     
-      db.collection("customers").get().then((querySnapshot) => {
+      dbRef.get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
           this.customers.push({
               id: doc.id,

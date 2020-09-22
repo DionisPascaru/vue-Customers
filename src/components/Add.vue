@@ -28,7 +28,7 @@
 import Alert from './Alert'
 import firebase from 'firebase';
 const db = firebase.firestore();
-
+const dbRef = db.collection("customers");
 
 export default {
   name: 'add',
@@ -44,8 +44,7 @@ export default {
       if(!this.customer.firstname || !this.customer.lastname || !this.customer.email){
         this.alert = 'Please fill in all required fields';
       } else {
-        db.collection("customers")
-        .add({ 
+        dbRef.add({ 
           firstname: this.customer.firstname,
           lastname: this.customer.lastname,
           email: this.customer.email

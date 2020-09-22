@@ -10,6 +10,7 @@ import About from './components/About'
 import Contacts from './components/Contacts'
 import Add from './components/Add'
 import CustomerDetails from './components/CustomerDetails'
+import EditCustomer from './components/Edit'
 
 Vue.use(vueResource); 
 Vue.use(VueRouter);
@@ -24,7 +25,8 @@ const router = new VueRouter({
     { path: '/about', component: About },
     { path: '/contacts', component: Contacts },
     { path: '/add', component: Add },
-    { path: '/customer/:id', component: CustomerDetails }
+    { path: '/customer/:id', component: CustomerDetails },
+    { path: '/customer/:id/edit', component: EditCustomer}
   ]
 })
 

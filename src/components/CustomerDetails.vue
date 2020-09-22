@@ -1,20 +1,19 @@
 <template>
   <div class="customer-details container">
+     <Alert v-if="alert" v-bind:message="alert" />
     <h1 class="page-header">Details</h1>
     <div class="customer">
       <button class="btn btn-default" v-on:click="deleteCustomer()">Delete</button>
+      <router-link class="btn btn-default" v-bind:to="'/customer/' + customerID + '/edit'">Edit</router-link>
       <ul class="list-group">
         <li class="list-group-item">
-          <p>First Name: {{customer.firstname}}</p>
-          <button class="btn btn-default">Edit</button>
+          <p><strong>First Name: </strong>{{customer.firstname}}</p>
         </li>
         <li class="list-group-item">
-          <p>Last Name: {{customer.lastname}}</p>
-          <button class="btn btn-default">e</button>
+          <p><strong>Last Name: </strong> {{customer.lastname}}</p>
         </li>
         <li class="list-group-item">
-          <p>Email: {{customer.email}}</p>
-          <button class="btn btn-default">e</button>
+          <p><strong>Email: </strong>{{customer.email}}</p>
         </li>
       </ul>
     </div>
@@ -24,25 +23,29 @@
 
 <script>
 
+import Alert from './Alert'
 import firebase from 'firebase';
 const db = firebase.firestore();
+const dbRef = db.collection("customers");
 
 export default {
   name: 'customer-details',
   data () {
     return {
       customer: {},
+      customerID: '',
       alert: ''
     }
   },
   methods: {
     fetchCustomers(id){
-     
-      db.collection("customers").get()
+      dbRef.get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           if(doc.id == id){
             this.customer = doc.data();
+            this.customerID = doc.id;
+            console.log("this.customer", this.customer)
           }
         });
       })
@@ -53,19 +56,22 @@ export default {
     deleteCustomer(){
       let confirmDelete = confirm("delete this item?")
       if(confirmDelete == true){
-        db.collection("customers").doc(this.$route.params.id).delete()
+        dbRef.doc(this.$route.params.id).delete()
         .then(function() {
           console.log("Document successfully deleted!");
         })
         .catch(function(error) {
           console.log('Error deleting user:', error);
         });
-        this.$router.push({path: "/", query: {alert: "Successfully deleted user"}});
+        this.$router.push({path: "/", query: {alert: "Successfully deleted user "}});
       }
     }
   },
   created(){
     this.fetchCustomers(this.$route.params.id)
+  },
+  components: {
+    Alert
   }
 }
 </script>
