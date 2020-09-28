@@ -1,7 +1,7 @@
 <template>
   <div class="customer-details container">
      <Alert v-if="alert" v-bind:message="alert" />
-    <h1 class="page-header">Details</h1>
+    <h1 class="page-header">Customer Details</h1>
     <div class="customer">
       <button class="btn btn-default" v-on:click="deleteCustomer()">Delete</button>
       <router-link class="btn btn-default" v-bind:to="'/customer/' + customerID + '/edit'">Edit</router-link>
