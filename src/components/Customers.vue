@@ -1,7 +1,7 @@
 <template>
   <div class="customers container">
     <Alert v-if="alert" v-bind:message="alert" />
-    <h1 class="page-header"> Manage customers</h1>
+    <h1 class="page-header">Welcome to Manage Customers</h1>
     <table class="table table-striped">
       <thead>
         <tr>
